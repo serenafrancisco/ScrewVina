@@ -5,7 +5,7 @@ This directory contains example files for testing ScrewVina.
 ## Contents
 
 - **receptors/** - 2 example receptor structures
-- **ligands/** - 30 example ligand structures (from DrugBank)
+- **ligands/** - 3 example ligand structures (from DrugBank)
 - **configurations/** - Configuration files for each receptor
 - **run_example.sh** - Script to run the example
 
