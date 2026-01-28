@@ -1,0 +1,17 @@
+# ScrewVina Requirements
+# Install with: pip install -r requirements.txt
+
+# Core dependencies: NONE!
+# ScrewVina uses only Python standard library
+
+# External requirements (install separately):
+# - AutoDock Vina: conda install -c conda-forge vina
+#   or download from: https://github.com/ccsb-scripps/AutoDock-Vina
+
+# Python version
+# Requires: Python >= 3.9
+
+# Optional (for development/testing)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
