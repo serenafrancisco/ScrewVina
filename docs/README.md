@@ -90,8 +90,8 @@ Found an error? Have a suggestion?
 
 ## 📧 Support
 
-- **GitHub Issues**: https://github.com/yourusername/ScrewVina/issues
-- **Email**: your.email@domain.com
+- **GitHub Issues**: https://github.com/serenafrancisco/ScrewVina/issues
+- **Email**: serena.francisco@unito.it
 - **Documentation Updates**: Check repository for latest version
 
 ---
