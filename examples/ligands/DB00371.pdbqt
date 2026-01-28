@@ -1,0 +1,42 @@
+REMARK SMILES CCCC(C)(COC(N)=O)COC(N)=O
+REMARK SMILES IDX 4 1 5 2 6 3 7 4 8 5 9 6 10 7 3 10 2 11 1 12 11 13 12 14
+REMARK SMILES IDX 13 15 14 16 15 17
+REMARK H PARENT 9 8 9 9 14 18 14 19
+ROOT
+ATOM      1  C   UNL     1      -0.166  -0.285  -0.015  1.00  0.00     0.036 C 
+ATOM      2  C   UNL     1      -0.180  -0.483  -1.543  1.00  0.00     0.018 C 
+ENDROOT
+BRANCH   1   3
+ATOM      3  C   UNL     1      -0.099  -1.608   0.656  1.00  0.00     0.245 C 
+BRANCH   3   4
+ATOM      4  O   UNL     1       1.073  -2.287   0.476  1.00  0.00    -0.449 OA
+BRANCH   4   5
+ATOM      5  C   UNL     1       2.323  -2.175   0.941  1.00  0.00     0.404 C 
+ATOM      6  N   UNL     1       3.319  -3.107   0.461  1.00  0.00    -0.335 N 
+ATOM      7  O   UNL     1       2.738  -1.331   1.767  1.00  0.00    -0.225 OA
+ATOM      8  H   UNL     1       3.445  -3.992   1.022  1.00  0.00     0.163 HD
+ATOM      9  H   UNL     1       3.886  -2.938  -0.380  1.00  0.00     0.163 HD
+ENDBRANCH   4   5
+ENDBRANCH   3   4
+ENDBRANCH   1   3
+BRANCH   1  10
+ATOM     10  C   UNL     1      -1.507   0.358   0.315  1.00  0.00     0.013 C 
+BRANCH  10  11
+ATOM     11  C   UNL     1      -2.676  -0.445  -0.147  1.00  0.00    -0.003 C 
+ATOM     12  C   UNL     1      -3.925   0.378   0.247  1.00  0.00     0.004 C 
+ENDBRANCH  10  11
+ENDBRANCH   1  10
+BRANCH   1  13
+ATOM     13  C   UNL     1       0.970   0.603   0.301  1.00  0.00     0.245 C 
+BRANCH  13  14
+ATOM     14  O   UNL     1       0.870   1.852  -0.419  1.00  0.00    -0.449 OA
+BRANCH  14  15
+ATOM     15  C   UNL     1       1.901   2.752  -0.181  1.00  0.00     0.404 C 
+ATOM     16  N   UNL     1       1.814   4.001  -0.893  1.00  0.00    -0.335 N 
+ATOM     17  O   UNL     1       2.855   2.505   0.601  1.00  0.00    -0.225 OA
+ATOM     18  H   UNL     1       1.194   4.772  -0.508  1.00  0.00     0.163 HD
+ATOM     19  H   UNL     1       2.341   4.175  -1.777  1.00  0.00     0.163 HD
+ENDBRANCH  14  15
+ENDBRANCH  13  14
+ENDBRANCH   1  13
+TORSDOF 8
