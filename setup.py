@@ -7,7 +7,7 @@ setup(
     name="screwvina",
     version="1.0.0",
     author="Serena Francisco",
-    author_email="serena.francisco@unito.com",
+    author_email="serena.francisco@unito.it",
     description="Automated ensemble docking and virtual screening with AutoDock-Vina",
     long_description=long_description,
     long_description_content_type="text/markdown",
