@@ -144,7 +144,7 @@ cd examples
 bash run_example.sh
 ```
 
-This will dock 3 example ligands against 2 example receptors.
+This will dock 30 example ligands against 2 example receptors.
 
 ## 🧩 Module Architecture
 ```
@@ -183,26 +183,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-- **Author**: Your Name
-- **Email**: your.email@domain.com
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Institution**: Your University/Institution
+- **Author**: Serena Francisco
+- **Email**: serena.francisco@unito.it
+- **GitHub**: [@serenafrancisco](https://github.com/serenafrancisco)
+- **Institution**: University of Turin
 
 ## 🙏 Acknowledgments
 
 - AutoDock Vina team for the docking software
 - [List other acknowledgments]
 
-## 📚 Citation
-
-If you use ScrewVina in your research, please cite:
-```bibtex
-@software{screwvina2025,
-  author = {Your Name},
-  title = {ScrewVina: Automated Molecular Docking},
-  year = {2025},
-  url = {https://github.com/yourusername/ScrewVina}
-}
 ```
 
 ## ⭐ Star History
