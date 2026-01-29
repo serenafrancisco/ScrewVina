@@ -156,16 +156,6 @@ receptor_1  ligand_2    -7.200        0.500             2.100        0.600
 
 Each module has a single, clear responsibility. See [docs/USER_MANUAL.md](docs/USER_MANUAL.md) for details.
 
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -180,7 +170,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - AutoDock Vina team for the docking software
-- [List other acknowledgments]
+- [MedChemBeyond Lab](https://www.cassmedchem.unito.it/node/1) at the University of Turin 
 
 ```
 
