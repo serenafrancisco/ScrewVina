@@ -8,10 +8,11 @@
 4. [Project Setup](#project-setup)
 5. [Configuration Files](#configuration-files)
 6. [Running Docking](#running-docking)
-7. [Analyzing Results](#analyzing-results)
-8. [Understanding Output](#understanding-output)
-9. [Troubleshooting](#troubleshooting)
-10. [FAQ](#faq)
+7. [Selective Docking Strategies](#selective-docking-strategies)
+8. [Analyzing Results](#analyzing-results)
+9. [Understanding Output](#understanding-output)
+10. [Troubleshooting](#troubleshooting)
+11. [FAQ](#faq)
 
 ---
 
