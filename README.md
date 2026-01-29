@@ -135,16 +135,6 @@ receptor_1  ligand_2    -7.200        0.500             2.100        0.600
 - [Installation Guide](docs/INSTALLATION.md) - Detailed setup instructions
 - [API Reference](docs/API_REFERENCE.md) - Module documentation
 
-## 🧪 Examples
-
-See the [`examples/`](examples/) directory for working examples:
-```bash
-cd examples
-bash run_example.sh
-```
-
-This will dock 30 example ligands against 2 example receptors.
-
 ## 🧩 Module Architecture
 ```
 ┌─────────────┐
