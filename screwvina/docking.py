@@ -11,10 +11,54 @@ from config import receptors_folder, ligands_folder, results_folder
 from file_utils import find_pdbqt, find_configuration
 from vina_execution import vina_execution
 
-# ==========================================================================================================================================================================
-# ==========================================================================================================================================================================
 
-def vina_docking(vina_exe="vina", num_jobs=4):
+
+def filter_files(files, name_filter, list_file, file_type):
+    """
+    Filter files based on name filter or list file.
+    
+    Args:
+        files: List of Path objects
+        name_filter: List of filenames (without extension) or None
+        list_file: Path to file containing list of names or None
+        file_type: String describing file type (for messages)
+    
+    Returns:
+        Filtered list of Path objects
+    """
+    # If no filters applied, return all
+    if name_filter is None and list_file is None:
+        return files
+    
+    # Generate atom sets to be included
+    include_names = set()
+    
+    # From arguments
+    if name_filter:
+        include_names.update(name_filter)
+        print(f"Filtering {file_type}: {', '.join(name_filter)}")
+    
+    # From file lists
+    if list_file:
+        try:
+            with open(list_file, 'r') as f:
+                names_from_file = [line.strip() for line in f if line.strip()]
+                include_names.update(names_from_file)
+                print(f"Loaded {len(names_from_file)} {file_type} from {list_file}")
+        except FileNotFoundError:
+            print(f"WARNING: List file {list_file} not found, ignoring")
+    
+    # Filter files
+    filtered = [f for f in files if f.stem in include_names]
+    
+    print(f"Selected {len(filtered)} {file_type} out of {len(files)} available")
+    
+    return filtered
+
+
+def vina_docking(vina_exe="vina", num_jobs=4,
+                 receptor_filter=None, ligand_filter=None,
+                 receptor_list_file=None, ligand_list_file=None):
 
     # Some fancy display messages and appearance settings:
     print("=" * 70)
@@ -29,12 +73,24 @@ def vina_docking(vina_exe="vina", num_jobs=4):
         print(f"ERROR: No ligand found in {ligands_folder}")
         return
     
+    # Step 1.1: Ligands filtering
+    ligands = filter_files(ligands, ligand_filter, ligand_list_file, "ligands")
+    if not ligands:
+        print(f"ERROR: No ligands match the specified filter")
+        return
+    
 
     # Step 2: Find all receptors using the same find_pdbqt() function and the receptor folder:
 
     receptors = find_pdbqt(receptors_folder)
     if not receptors:
         print(f"ERROR: No receptor found in {receptors_folder}")
+        return
+    
+    # Step 2.1: Receptors filtering
+    receptors = filter_files(receptors, receptor_filter, receptor_list_file, "receptors")
+    if not receptors:
+        print(f"ERROR: No receptors match the specified filter")
         return
     
 
