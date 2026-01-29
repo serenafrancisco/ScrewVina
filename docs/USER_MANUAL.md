@@ -379,14 +379,85 @@ OPTIONS:
 **Examples:**
 
 ```bash
-# Use 8 parallel jobs
-python screwvina.py dock --jobs 8
+# 1. Standard: dock all receptors against all ligands
+python screwvina.py dock --jobs 4
 
-# Specify Vina path
-python screwvina.py dock --vina /usr/local/bin/vina --jobs 4
+# 2. Specific receptors only
+python screwvina.py dock --receptors protein_A protein_B --jobs 4
 
-# Dock without analysis
-python screwvina.py dock --no-analyze --jobs 4
+# 3. Specific ligands only
+python screwvina.py dock --ligands compound_1 compound_2 compound_3 --jobs 4
+
+# 4. Specific receptors AND ligands
+python screwvina.py dock \
+    --receptors protein_A protein_C \
+    --ligands compound_1 compound_5 \
+    --jobs 4
+
+# 5. Using list files
+python screwvina.py dock \
+    --receptors-list my_receptors.txt \
+    --ligands-list my_ligands.txt \
+    --jobs 4
+
+# 6. Mix: direct + list file
+python screwvina.py dock \
+    --receptors protein_A protein_B \
+    --ligands-list active_compounds.txt \
+    --jobs 4
+
+# 7. Custom Vina path with selection
+python screwvina.py dock \
+    --vina /usr/local/bin/vina \
+    --receptors protein_A \
+    --ligands compound_1 compound_2 \
+    --jobs 4
+
+# 8. Dock without analysis
+python screwvina.py dock \
+    --receptors protein_A \
+    --ligands compound_1 \
+    --no-analyze \
+    --jobs 8
+```
+
+#### Creating List Files
+
+List files contain one filename per line (without extension):
+
+**Example: `selected_receptors.txt`**
+```
+protein_A
+protein_C
+protein_E
+kinase_1
+kinase_5
+```
+
+**Example: `active_ligands.txt`**
+```
+compound_001
+compound_050
+compound_100
+reference_inhibitor
+```
+
+**Tips:**
+- One name per line
+- Do NOT include `.pdbqt` extension
+- Empty lines and lines starting with `#` are ignored
+- Names must match exactly (case-sensitive)
+
+**Creating list files programmatically:**
+```bash
+# All receptors starting with "kinase"
+ls receptors/kinase*.pdbqt | xargs -n1 basename -s .pdbqt > kinases.txt
+
+# First 10 ligands
+ls ligands/*.pdbqt | head -10 | xargs -n1 basename -s .pdbqt > first_10.txt
+
+# Ligands matching pattern
+ls ligands/compound_0*.pdbqt | xargs -n1 basename -s .pdbqt > compounds_0xx.txt
 ```
 
 #### `analyze` Command
@@ -429,6 +500,107 @@ Progress: 25/150 (ok=25, errors=0)
 Progress: 50/150 (ok=50, errors=0)
 Progress: 75/150 (ok=75, errors=0)
 ...
+```
+
+When lists are used, you'll see which files are being used:
+```
+======================================================================
+STARTING DOCKING...
+======================================================================
+Filtering receptors: protein_A, protein_B
+Selected 2 receptors out of 10 available
+Filtering ligands: compound_1, compound_5, compound_10
+Selected 3 ligands out of 100 available
+Receptors: 2
+Ligands: 3
+Dockings to perform: 6
+Parallel jobs: 4
+Output folder: /path/to/vs_runs
+======================================================================
+
+Executing 4 docking processes at a time...
+Progress: 6/6 (ok=6, errors=0)
+...
+```
+---
+
+## Selective Docking Strategies
+
+### Use Case 1: Testing New Ligands Against Known Targets
+
+You have 100 ligands but only want to test 10 new ones against 3 key receptors:
+```bash
+# Create list of new ligands
+cat > new_ligands.txt << EOF
+new_compound_01
+new_compound_02
+new_compound_03
+new_compound_04
+new_compound_05
+new_compound_06
+new_compound_07
+new_compound_08
+new_compound_09
+new_compound_10
+EOF
+
+# Dock against key targets
+python screwvina.py dock \
+    --receptors protein_A protein_C protein_E \
+    --ligands-list new_ligands.txt \
+    --jobs 4
+```
+
+**Result:** 3 receptors × 10 ligands = 30 dockings instead of 300!
+
+---
+
+### Use Case 2: Re-docking Top Hits
+
+After initial screening, re-dock top 20 hits with higher exhaustiveness:
+```bash
+# 1. Initial screening (low exhaustiveness for speed)
+# Edit configurations/*.txt: exhaustiveness = 8
+python screwvina.py dock --jobs 8
+
+# 2. Analyze results
+python screwvina.py analyze
+
+# 3. Find top hits (affinity < -8.0)
+awk -F'\t' '$3 < -8.0 {print $2}' vina_results.tsv | sort -u > top_hits.txt
+
+# 4. Update configs for thorough search
+# Edit configurations/*.txt: exhaustiveness = 64
+
+# 5. Re-dock top hits
+python screwvina.py dock \
+    --ligands-list top_hits.txt \
+    --jobs 4
+```
+
+---
+
+### Use Case 3: Target-Specific Screening
+
+Screen different ligand sets against different targets:
+```bash
+# Kinase inhibitors against kinases
+python screwvina.py dock \
+    --receptors kinase_A kinase_B kinase_C \
+    --ligands-list kinase_inhibitors.txt \
+    --jobs 4
+
+# Protease inhibitors against proteases
+python screwvina.py dock \
+    --receptors protease_A protease_B \
+    --ligands-list protease_inhibitors.txt \
+    --jobs 4
+
+# GPCR ligands against GPCRs
+python screwvina.py dock \
+    --receptors GPCR_A GPCR_B GPCR_C GPCR_D \
+    --ligands-list GPCR_ligands.txt \
+    --jobs 4
 ```
 
 ---
