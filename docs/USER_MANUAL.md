@@ -10,9 +10,8 @@
 6. [Running Docking](#running-docking)
 7. [Analyzing Results](#analyzing-results)
 8. [Understanding Output](#understanding-output)
-9. [Advanced Usage](#advanced-usage)
-10. [Troubleshooting](#troubleshooting)
-11. [FAQ](#faq)
+9. [Troubleshooting](#troubleshooting)
+10. [FAQ](#faq)
 
 ---
 
@@ -541,99 +540,6 @@ protein_A   compound_001  -8.5   0.3   1.5   0.4
 import pandas as pd
 df = pd.read_csv("vina_results.tsv", sep="\t")
 print(df.head())
-```
-
----
-
-## Advanced Usage
-
-### Using as Python Library
-
-Instead of command-line, you can use ScrewVina in your Python scripts:
-
-```python
-import sys
-sys.path.insert(0, '/path/to/screwvina')
-
-from docking import vina_docking
-from analysis import analyze_results
-
-# Run docking
-vina_docking(vina_exe="vina", num_jobs=4)
-
-# Analyze
-analyze_results(output_filename="my_results.tsv")
-```
-
-### Custom Workflows
-
-#### Example: Filter and Re-dock
-
-```python
-from analysis import analyze_results
-import pandas as pd
-
-# First round: quick screening
-from docking import vina_docking
-vina_docking(vina_exe="vina", num_jobs=8)
-
-# Analyze
-analyze_results("round1_results.tsv")
-
-# Filter top hits
-df = pd.read_csv("round1_results.tsv", sep="\t")
-top_hits = df[df["Avg_Affinity"] < -8.0]
-
-# Save list of good ligands
-top_ligands = top_hits["Ligand"].unique()
-print(f"Found {len(top_ligands)} promising ligands")
-
-# Now manually re-dock with higher exhaustiveness
-# (update configs, move files, etc.)
-```
-
-#### Example: Parallel Different Targets
-
-```python
-from pathlib import Path
-from docking import vina_docking
-
-# Dock against different targets in parallel
-import subprocess
-
-targets = ["kinase_A", "kinase_B", "kinase_C"]
-
-processes = []
-for target in targets:
-    # Each target in separate directory
-    cmd = f"cd {target}/screwvina && python screwvina.py dock --jobs 2"
-    p = subprocess.Popen(cmd, shell=True)
-    processes.append(p)
-
-# Wait for all to complete
-for p in processes:
-    p.wait()
-
-print("All targets completed!")
-```
-
-### Batch Processing
-
-For large-scale screening:
-
-```bash
-#!/bin/bash
-# batch_docking.sh
-
-# Process different receptor sets
-for receptor_set in kinases proteases gpcrs; do
-    echo "Processing $receptor_set..."
-    cd $receptor_set
-    python ../screwvina/screwvina.py dock --jobs 4
-    cd ..
-done
-
-echo "All sets completed!"
 ```
 
 ---
