@@ -326,6 +326,28 @@ This will:
 3. ✅ Automatically analyze results
 4. ✅ Create `vina_results.tsv`
 
+#### Selective Docking (specific receptors/ligands)
+```bash
+# Dock only specific receptors against specific ligands
+python screwvina.py dock \
+    --receptors protein_A protein_B \
+    --ligands compound_1 compound_5 compound_10 \
+    --jobs 4
+```
+
+#### Using List Files
+```bash
+# Create list files
+echo -e "protein_A\nprotein_C\nprotein_E" > selected_receptors.txt
+echo -e "compound_1\ncompound_5\ncompound_10" > selected_ligands.txt
+
+# Dock using lists
+python screwvina.py dock \
+    --receptors-list selected_receptors.txt \
+    --ligands-list selected_ligands.txt \
+    --jobs 4
+```
+
 #### Docking Without Analysis
 ```bash
 python screwvina.py dock --no-analyze --jobs 4
@@ -344,10 +366,14 @@ python screwvina.py analyze
 python screwvina.py dock [OPTIONS]
 
 OPTIONS:
-  --vina TEXT        Name or path of Vina executable (default: "vina")
-  --jobs INTEGER     Number of parallel jobs (default: 4)
-  --no-analyze       Skip automatic analysis after docking
-  --help             Show help message
+  --vina TEXT                       Name or path of Vina executable (default: "vina")
+  --jobs INTEGER                    Number of parallel jobs (default: 4)
+  --receptors NAME [NAME...]        Specific receptor names (without .pdbqt)
+  --ligands NAME [NAME...]          Specific ligand names (without .pdbqt)
+  --receptors-list FILE             File with receptor names (one per line)
+  --ligands-list FILE               File with ligand names (one per line)
+  --no-analyze                      Skip automatic analysis after docking
+  --help                            Show help message
 ```
 
 **Examples:**
