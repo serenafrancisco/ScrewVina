@@ -19,8 +19,7 @@ cd ScrewVina
 conda env create -f environment.yml
 conda activate screwvina
 
-# 3. Run example
-cd examples
+# 3. Run example (Required directories: configurations/, receptors/, ligands/)
 bash run_example.sh
 
 # 4. Check results
