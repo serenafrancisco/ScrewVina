@@ -42,6 +42,34 @@ def main():
         help = "Do not execute the automatic analysis after docking"    # here, the user has to explicitly add the --no-analysis argument to avoid analysis
     )
 
+    dock_parser.add_argument(
+        "--receptors",
+        nargs = "+",   # lists are accepted
+        default = None,
+        help = "Specific receptor files to use (default: all)"
+    )
+
+    dock_parser.add_argument(
+        "--ligands",
+        nargs = "+",
+        default = None,
+        help = "Specific ligand files to use (default: all)"
+    )
+
+    dock_parser.add_argument(
+        "--receptors-list",
+        type = str,
+        default = None,
+        help = "File containing list of receptors (one per line)"
+    )
+
+    dock_parser.add_argument(
+        "ligands-list",
+        type = str,
+        default = None,
+        help = "File containing list of ligands (one per line)"
+    )
+
 
     # ANALYZE command:
     analyze_parser = subparsers.add_parser("analyze", help="Analyze docking results only")
@@ -61,6 +89,14 @@ def main():
 
     try:
         if args.command == "dock":
+            vina_docking(
+                vina_exe=args.vina, 
+                num_jobs=args.jobs,
+                receptor_filter=args.receptors,
+                ligand_filter=args.ligands,
+                receptor_list_file=args.receptors_list,
+                ligand_list_file=args.ligands_list
+            )
             vina_docking(vina_exe=args.vina, num_jobs=args.jobs)    # does everything, unless analysis is disabled with --no-analyze
             if not args.no_analyze:
                 print()
@@ -75,11 +111,8 @@ def main():
     
     return 0
 
-# ==========================================================================================================================================================================
-# ==========================================================================================================================================================================
+
 
 if __name__ == "__main__":
     sys.exit(main())
 
-# ==========================================================================================================================================================================
-# ==========================================================================================================================================================================
