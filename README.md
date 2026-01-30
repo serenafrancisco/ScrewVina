@@ -172,9 +172,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - AutoDock Vina team for the docking software
 - [MedChemBeyond Lab](https://www.cassmedchem.unito.it/node/1) at the University of Turin 
 
-```
-
-## ⭐ Star History
-
-If you find this useful, please consider giving it a star! ⭐
-
