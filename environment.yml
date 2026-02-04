@@ -1,0 +1,17 @@
+name: screwvina
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - vina
+  
+  # Optional: For analysis/visualization
+  # - pandas
+  # - matplotlib
+  # - jupyter
+  
+  # Optional: For development
+  # - pytest
+  # - black
+  # - flake8

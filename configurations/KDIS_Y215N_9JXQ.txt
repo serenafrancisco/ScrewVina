@@ -1,0 +1,13 @@
+cpu = 3                                      # number of CPU cores to be used
+scoring = vina                               # force field method
+exhaustiveness = 32                          # amount of computational effort *
+seed = 20021999                              # random number generator for the algorithm **
+num_modes = 10                               # n. of docked poses returned for each ligand
+energy_range = 3                             # kcal/mol difference between 1st and 10th pose
+center_x = 218.321                           # centre X coordinate
+center_y = 248.972                           # centre Y coordinate
+center_z = 275.411                           # centre Z coordinate
+size_x = 20                                  # box size (in angstroms) along X
+size_y = 20                                  # box size (in angstroms) along Y
+size_z = 20                                  # box size (in angstroms) along Z
+
